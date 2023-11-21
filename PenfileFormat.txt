@@ -1,0 +1,9 @@
+station #	penetration #	'cruise name' datum
+latitude	longitude		average depth	average tilt
+logger ID	probe ID		number of sensors	heat pulse power (J)
+	penetration record #
+	heat pulse record #
+	average temp. recorded by each sensor during calibration period
+	record #	temperature recorded by each sensor during penetration
+	record #	temperature recorded by each sensor during penetration
+	record #	temperature recorded by each sensor during penetration
