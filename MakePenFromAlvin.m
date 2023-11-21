@@ -137,7 +137,7 @@ function MakeSinglePen(PenFileName, PenFilePath,PenFile)
     % J to fit SlugHeat22 PEN file format. Ask user heat pulse duration and
     % length of thermistor string
 
-    gethp = input('Get het pulse power from raw text file? (y/n) ', 's');
+    gethp = input('Get heat pulse power from raw text file? (y/n) ', 's');
     switch gethp
         case 'y'
             hp_duration = input('Heat pulse duration (s)?  ', 's');
@@ -174,16 +174,19 @@ function MakeSinglePen(PenFileName, PenFilePath,PenFile)
         heat=input('Enter measurement number for heat on  ');
         pullout=input('Enter measurement number for pullout  ');
     
-        plot([bwton,bwton],[mintemp,maxtemp],'k', 'DisplayName','start calibration')
-        plot([bwtoff,bwtoff],[mintemp,maxtemp],'k', 'DisplayName','end calibration')
-        plot([pen,pen],[mintemp,maxtemp],'k', 'DisplayName','start penetration')
-        plot([heat,heat],[mintemp,maxtemp],'k', 'DisplayName','heat pulse')
-        plot([pullout,pullout],[mintemp,maxtemp],'k', 'DisplayName','end penetration')
+        lines(1) = plot([bwton,bwton],[mintemp,maxtemp],'k', 'DisplayName','start calibration');
+        lines(2) = plot([bwtoff,bwtoff],[mintemp,maxtemp],'k', 'DisplayName','end calibration');
+        lines(3) = plot([pen,pen],[mintemp,maxtemp],'k', 'DisplayName','start penetration');
+        lines(4) = plot([heat,heat],[mintemp,maxtemp],'k', 'DisplayName','heat pulse');
+        lines(5) = plot([pullout,pullout],[mintemp,maxtemp],'k', 'DisplayName','end penetration');
         legend
     
         ans=input('Do you accept measurement numbers (y/n)   ','s');
-    %     ans='y';
-        if ans == 'y', i=0; end
+        if ans == 'y'
+            i=0;
+        else
+            delete(lines)
+        end
     end
     
     temps=[T1,T2,T3,T4,T5];
@@ -205,7 +208,6 @@ function MakeSinglePen(PenFileName, PenFilePath,PenFile)
         PenfileTemps = temps;
         BottomWaterRawData=MeanCalTemps;
         AllRecords = 1:length(T1); 
-        AllRecords=AllRecords';
 
     % Use root of raw data filename to create penetration filename.
        fl = PenFileName(1:end-4);
@@ -224,7 +226,7 @@ function MakeSinglePen(PenFileName, PenFilePath,PenFile)
        fprintf(fido,'%s\n',hdrstr1);
        hdrstr2 = [Latitude, '  ', Longitude,'  ', DepthMean, '  ',TiltMean];
        fprintf(fido,'%s\n',hdrstr2);
-       hdrstr3 = [LoggerId,'  ',ProbeId,'  ',NoTherm, '  ', PulsePower];
+       hdrstr3 = [LoggerId,'  ',ProbeId,'  ',num2str(NoTherm), '  ', PulsePower];
        fprintf(fido,'%s\n',hdrstr3);
        fprintf(fido,'   %d\n',pen);
        fprintf(fido,'   %d\n',heat);
@@ -233,13 +235,13 @@ function MakeSinglePen(PenFileName, PenFilePath,PenFile)
     % Ouptut Format for Mean Calibration Temps
        Fmt = '%8.3f ' ;
        Fmt = repmat(Fmt,1,NumThermTotal);
-       FmtBW = ['%6s',Fmt, '\n'];
-       fprintf(fido,FmtBW, '  ', MeanCalTemps);
+       FmtBW = ['%6s',Fmt, '%8.0f \n'];
+       fprintf(fido,FmtBW, '  ', MeanCalTemps,-999);
     
     % Write rest of penetration file
        formpen=repmat('%8.3f ',1,ip);
        formpen=['%5.0f ' formpen '%8.0f \n'];
-       allcolumns = [AllRecords,temps, WaterSensorRawData];
+       allcolumns = [AllRecords',temps, WaterSensorRawData];
        i=1;
        while i<=size(temps,1)
           fprintf(fido,formpen,allcolumns(i,:));
