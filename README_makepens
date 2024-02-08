@@ -2,4 +2,16 @@
 
 To make a .pen and .mat file from Alvin probe raw data, use MakePenFromAlvin.m
 
-Select a raw .txt data file generated from an Alvin probe penetration. Follow intructions on the command window. This will include selecting timing of calibration, penetration, and heat pulse. There will be an optional choice to use the heat pulse power recorded by the probe. The Alvin probe records power in W/m. User must define the heat pulse duration (s) and heat pulse string length (m) in order to convert the heat pulse power to J, which is recorded in the .pen file. 
+Select a raw .txt data file generated from an Alvin probe penetration. Follow instructions on the command window. This will include selecting timing of calibration, penetration, and heat pulse. There will be an optional choice to use the heat pulse power recorded by the probe. The Alvin probe records power in W/m. User must define the heat pulse duration (s) and heat pulse string length (m) in order to convert the heat pulse power to J, which is recorded in the .pen file. 
+
+PEN file format:
+
+station #	penetration #	'cruise name' datum
+latitude	longitude		average depth	average tilt
+logger ID	probe ID		number of sensors	heat pulse power (J)
+	penetration record #
+	heat pulse record #
+	average temp. recorded by each sensor during calibration period
+	record #	temperature recorded by each sensor during penetration
+	record #	temperature recorded by each sensor during penetration
+	record #	temperature recorded by each sensor during penetration

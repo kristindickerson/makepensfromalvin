@@ -1,6 +1,6 @@
 start   of      data    file.
-siteNameHF-751-01            Edited to fix time AF 131209
-Probe   serial  Number:        0
+siteName: HF-751-01
+Probe   serial  Number: 0
 
 Date    Meas#   T1(B)   T2      T3      T4      T5(T)   H
 -------------------------------------------------------------------

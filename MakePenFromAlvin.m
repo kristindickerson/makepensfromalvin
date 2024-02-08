@@ -168,7 +168,7 @@ function MakeSinglePen(PenFileName, PenFilePath,PenFile)
     
     i=1;
     while i > 0,
-        bwton=input('Enter measurement number for BWT start  ');
+        bwton=input('Enter measurement number for BWT start. must be > 0  ');
         bwtoff=input('Enter measurement number for BWT end  ');
         pen=input('Enter measurement number for penetration  ');
         heat=input('Enter measurement number for heat on  ');
